@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>List Countries Based On Alphabets</title>
+    </head>
+    <body>
+        <div id="alphabets_div"></div>
+        <h1 id="title"></h1>
+        <ul id="country_list">
+
+        </ul>
+    </body>
+    <script>
+        const alphabetsDiv = document.querySelector('#alphabets_div');
+        const titleHandle = document.querySelector('#title');
+        const ulTag = document.querySelector('#country_list');
+        
+        window.onload = function(){
+            const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            alphabets.split("").forEach(function(ele){
+               const aTag = document.createElement('a');
+               aTag.setAttribute('href',"#");
+               aTag.textContent = ele;
+               alphabetsDiv.appendChild(aTag);
+               
+               aTag.addEventListener('click', (ele) =>{
+                   ulTag.textContent ='';
+
+                    const selectedLetter = ele.target.textContent;
+
+                    xhr = new XMLHttpRequest();
+                    xhr.open('GET','https://restcountries.eu/rest/v2/all?fields=name;')
+                    xhr.send();
+
+                    xhr.onload = function (){
+                        const data = JSON.parse(xhr.responseText);
+                        const fileteredCountries = data.filter((country)=>{
+                            if(selectedLetter == country.name.charAt(0)){
+                                
+                               const liTag =  document.createElement('li');
+                               liTag.textContent = country.name;
+                               ulTag.append(liTag);
+                               return country.name;
+                            }
+                        })
+                        titleHandle.textContent = `List Countries ${fileteredCountries.length}`;
+                        
+                    }
+            })
+            });
+        }
+    </script>
+</html>

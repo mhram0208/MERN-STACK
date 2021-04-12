@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Words and Character Count</title>
+    </head>
+    <body>
+        <h2>Words and Character Counter</h2>
+        <form>
+            <input type="text" name="username" onkeyup="countInput(event)"> 
+            <h5></h5>
+        </form>
+        
+        <script>
+            const h5Tag=document.querySelector('h5');
+            function countInput(e){
+                e.preventDefault();  
+                const inputValue = e.target.value;
+                const inputArr = inputValue.split(' ');
+                let wordCount=0;
+                for(let i=0; i < inputArr.length; i++){
+                    if(inputArr[i] !==''){
+                        wordCount++;
+                    }
+                }
+                const charCount = inputValue.length;
+                h5Tag.innerText = `words - ${wordCount}, characters - ${charCount}`
+            }
+        </script>
+    </body>
+</html>

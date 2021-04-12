@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Hashtag Generator</title>
+    </head>
+    <body>
+        <h2>Hashtag Generator</h2>
+        <form onsubmit="hashTagGenerator(event)">
+            <label>Enter String</label>
+            <input type="text" name="userinput"> 
+            <button type="submit">Submit</button>
+        </form>
+        <h3></h3>
+        <script>
+            const h3Tag=document.querySelector('h3');
+            function hashTagGenerator(e){
+                e.preventDefault();  
+                const str = e.target.userinput.value;
+                let strArr = str.split(' ');
+                let newStr='';
+                for(let i=0; i < strArr.length; i++){
+                     newStr += strArr[i][0].toUpperCase() + strArr[i].substr(1);
+                }
+                h3Tag.textContent = `#${newStr}`
+                
+            }
+        </script>
+    </body>
+</html>

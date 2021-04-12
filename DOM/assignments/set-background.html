@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Set Background Color</title>
+    </head>
+    <body>
+        <h2>Set Background Color</h2>
+        <form>
+            <input type="button" name="red" value="Red"> 
+            <input type="button" name="yellow" value="Yellow"> 
+            <input type="button" name="blue" value="Blue"> 
+            <input type="button" name="reset" value="Reset"> 
+        </form>
+        
+        <script>
+            const btn = document.querySelectorAll('input');
+            const body = document.querySelector('body');
+            
+            if (localStorage.getItem("background") != null) {
+                body.style.backgroundColor = localStorage.background;
+            }
+            for(let i=0; i < btn.length; i++){
+                btn[i].addEventListener('click',function(){
+                    if(btn[i].value=='Reset'){
+                        localStorage.clear();
+                        body.style.backgroundColor=''
+                    }else {
+                        // body.style.backgroundColor = localStorage.getItem(btn[i].value);
+                        localStorage.setItem("background",btn[i].value);
+                        body.style.backgroundColor = localStorage.background;
+                    }   
+                    
+                    
+            });
+            }
+        </script>
+    </body>
+</html>

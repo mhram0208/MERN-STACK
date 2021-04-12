@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Task Box</title>
+    </head>
+    <body>
+        <h1>Task Box</h1>
+        <form onsubmit="handleSubmit(event)">
+            <input type="text" name="title" placeholder="Enter tsk title" />
+        </form>
+        <h2>My Tasks - 0</h2>
+        <ul>
+            
+        </ul>
+        <script>
+            const tasks = JSON.parse(localStorage.getItem('tasks'))  || [];
+            let count = 0;
+            const ulHandle = document.querySelector('ul');
+            const h2Handle = document.querySelector('h2');
+            const handleSubmit = (e) =>{
+                e.preventDefault();
+                const task = {
+                    id : Number(new Date()),
+                    title : e.target.title.value
+                }
+                
+                tasks.push(task);
+                localStorage.setItem('tasks',JSON.stringify(tasks))
+                e.target.reset();
+                liGenerator(task);
+            }
+
+            //create element
+            const liGenerator = (task) => {
+                const liTag = document.createElement('li');
+                liTag.textContent = task.title;
+                ulHandle.appendChild(liTag);
+                h2Handle.textContent = `My Tasks ${tasks.length}`; 
+                liRemove(liTag, task);
+            }
+
+            //remove element
+            const liRemove = (liTag, task) =>{
+                liTag.addEventListener('click',()=>{
+                    ulHandle.removeChild(liTag);
+
+                    const index = tasks.findIndex((arrTask) =>{
+                        return arrTask.id == task.id;
+                    });
+                    tasks.splice(index,1);
+
+                    localStorage.setItem('tasks',JSON.stringify(tasks));
+                    h2Handle.textContent = `My Tasks ${tasks.length}`;
+                }); 
+            }
+            tasks.forEach((task) => {
+                liGenerator(task);
+            });
+        </script>
+    </body>
+</html>

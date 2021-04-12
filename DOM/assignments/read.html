@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Read</title>
+    </head>
+    <body>
+        <h1></h1>
+        <p></p>
+        <script>
+            const h1Tag= document.querySelector('h1');
+            const pTag= document.querySelector('p');
+            // const user = { name: 'adam', age: '19', contact: JSON.stringify({ user_name: 'adam_rush', email: 'adam@gmail.com' })}
+            localStorage.setItem('user',JSON.stringify({ name: 'adam', age: '19', contact: { user_name: 'adam_rush', email: 'adam@gmail.com' }}));
+            const parsedItem = JSON.parse(localStorage.getItem('user'));
+            
+            h1Tag.innerText=parsedItem.name;
+            pTag.innerHTML = `${parsedItem.age}, ${parsedItem.contact.user_name}, ${parsedItem.contact.email}`
+        </script>
+    </body>
+</html>

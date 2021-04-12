@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>List Countries Ajax</title>
+    </head>
+    <body>
+        <h1 id="title"></h1>
+        <ul id="list"></ul>
+        <script>
+            const titleHandle = document.querySelector('#title');
+            const listHandle = document.querySelector('#list');
+            window.onload = function (){
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET','https://restcountries.eu/rest/v2/all?fields=name;capital;population;latlng;');
+                xhr.send();
+                xhr.onload = function(){
+                    const data = JSON.parse(xhr.responseText);
+                    console.log('data', data);
+                    titleHandle.textContent = `List Countries ${data.length}`;
+
+                    data.forEach((country) => {
+                        console.log(country);
+                        const liTag =document.createElement('li');
+                        const showBtn =document.createElement('button');
+                        
+                        liTag.textContent = `${country.name} - ${country.capital}`;
+                        showBtn.textContent=`Show`;
+                        showBtn.onclick =() =>{
+                            alert(`capital - ${country.capital}, population - ${country.population}, latlng - (${country.latlng})`);
+                        }
+                        liTag.appendChild(showBtn);
+                        listHandle.appendChild(liTag);
+                    });
+                }
+
+                xhr.onerror = function (){
+
+                }
+            }
+        </script>
+    </body>
+</html>
