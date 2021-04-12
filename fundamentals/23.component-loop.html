@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            23. Component Loop
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const users = [
+                { "id": 1, "email": "george@gmail.com", "first_name": "George", "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg" },
+                { "id": 2, "email": "weaver@gmail.com", "first_name": "Weaver", "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg" },
+                { "id": 3, "email": "wong@gmail.com", "first_name": "Wong", "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg" },
+                { "id": 4, "email": "eve@gmail.com", "first_name": "Eve", "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg" }
+            ]
+            /*
+            1.Create a User Component
+            2.Pass first_name and avatar as props
+            3.should return
+                image - avatar
+                h3 - first_name
+            */
+            function UserInfo(props){
+                return (
+                    <div>
+                        <img src={props.avatar}/>
+                        <h3>{props.first_name}</h3>
+                        <hr/>
+                    </div>
+                )
+            }
+           const ele = (
+                <div>
+                   {users.map((user)=>{
+                        return (
+                            <UserInfo 
+                                key={user.id} 
+                                first_name={user.first_name} 
+                                avatar={user.avatar}
+                            />
+                        )
+                   })}
+                </div>
+           )
+                
+           ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

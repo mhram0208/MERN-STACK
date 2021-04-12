@@ -1,0 +1,58 @@
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+           Array List
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            /* 
+                1. Create a component called as RandomNumbers
+                2. Maintain state variables called as numbers
+                3. Display the count of numbers
+                4. Display a button on the screen called as "Add"
+                5. When the user clicks the button, generate a random number and add it to state
+            */
+
+            const {useState} = React
+
+            function RandomNumbers(props){
+                const [numbers, setNumbers] = useState([])
+
+                //callback
+                const addItem = () =>{
+                    const random = Math.round(Math.random()*100)
+                    const newNumbers = [...numbers, random]
+                    setNumbers(newNumbers)
+                    
+                    
+                }
+
+                return(
+                    <div>
+                        <h1>Total - {numbers.length}</h1>
+                        <button onClick={addItem}>Add</button>
+                        <ul>
+                            {numbers.map((number, i)=>{
+                                return <li key ={i}>{number}</li>
+                            })}
+                        </ul>
+                    </div>
+                )
+            }
+            ReactDOM.render(<RandomNumbers/>,rootHandle)
+        </script>
+    </body>
+</html>

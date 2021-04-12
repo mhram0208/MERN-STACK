@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            6.Specify Attributes
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const website = {
+                title:'Facebook',
+                url:'http://www.facebook.com',
+                distance:'140 kms',
+                duration:'3 hours 30 mins'
+            }
+
+            const ele = <a href={website.url} target="_blank">{website.title}</a>
+
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

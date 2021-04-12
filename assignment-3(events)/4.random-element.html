@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            4.Random Element
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const fruits = ['apple', 'water melon', 'strawberry', 'kiwi']
+
+            function RandomElement(props){
+                return (
+                    <input type ="button" onClick={pick_random_fruit}  value="Pick Random" />
+                )
+
+                function pick_random_fruit(e){
+                    e.preventDefault();
+                    const random_fruit = fruits[Math.floor(Math.random()*props.fruits.length)]
+                    alert(random_fruit)
+                }  
+            }
+                
+            const ele = <RandomElement fruits={fruits} />
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

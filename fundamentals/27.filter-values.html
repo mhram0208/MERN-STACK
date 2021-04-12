@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            27. Filter Values
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const tasks = [
+                { id: 1, title: "Task 1", isCompleted: true},
+                { id: 2, title: "Task 2", isCompleted: true},
+                { id: 3, title: "Task 3", isCompleted: false},
+            ]
+            /*
+            1.Create a Component called TasksList
+            2.Pass only the completed task as props to the  TaskList
+            3.Return an unordered list of the TasksList
+            */
+           const completedTasks = tasks.filter((task)=>{
+                return task.isCompleted
+           })
+
+           const incompleteTasks = tasks.filter((task)=>{
+                return !task.isCompleted
+           })
+
+            function TasksList(props){
+                return (
+                    <div>
+                        <h2>{props.text} Task {props.tasks.length}</h2>
+                        <ul>
+                            {props.tasks.map((task)=>{
+                                return <li key={task.id}>{task.title}</li>
+                            })}
+                        </ul>
+                    </div>
+                )
+            }
+
+           const ele = (
+                <div>
+                    <TasksList tasks={tasks} text="All"/>
+                    <TasksList tasks={tasks.filter(task => task.isCompleted)} text="Completed"/>
+                    <TasksList tasks={incompleteTasks} text="Incomplete"/>
+                </div>
+           )
+           
+           ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

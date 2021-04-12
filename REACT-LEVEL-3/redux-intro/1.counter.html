@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>1. Counter with redux</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="./redux.js"></script>
+        <script>
+            //create a store
+            const {createStore, combineReducers} = Redux
+
+            //count action
+            //increment action
+            // const increment ={
+            //     type: "INCREMENT",
+            // }
+
+            //increment action - creator
+            const increment = () =>{
+                console.log('increment action')
+                return {
+                    type:"INCREMENT"
+                }
+            }
+
+            //decrement - action creator
+            const decrement = () =>{
+                console.log('decrement action')
+                return {
+                    type:"DECREMENT"
+                }
+            }
+
+            //reset - action creator
+            const reset = () =>{
+                console.log('reset action')
+                return {
+                    type:"RESET"
+                }
+            }
+
+            //incrementBy - action creator
+            const incrementBy = (n) =>{
+                console.log('increment_by action')
+                return{
+                    type:"INCREMENT_BY",
+                    payload:n
+                }
+            }
+
+            //countReducer
+            const countInitialState = 0
+            const countReducer = (state = countInitialState, action) =>{
+                if(action.type === "INCREMENT"){
+                    return state+1
+                } else if (action.type==="DECREMENT"){
+                    return state-1
+                } else if(action.type === "RESET"){
+                    return countInitialState
+                } else if(action.type === "INCREMENT_BY"){
+                    return state + action.payload
+                } else {
+                    return state
+                }
+            }
+
+            const store = createStore(combineReducers({
+                count : countReducer
+            }))
+
+            console.log(store)
+            console.log(store.getState())
+
+            store.subscribe (() =>{
+                console.log(store.getState())
+            })
+
+            // store.dispatch(increment)
+            store.dispatch(increment())
+            store.dispatch(increment())
+
+            /*
+                ****DECREMENT****
+                1. Declare action creator for decrement
+                2. It should return an action object
+                3. Update the reducer to handle type decrement and return the new state
+                4. Dispatch the action to the store
+            */
+
+            store.dispatch(decrement())
+            /*
+                ****RESET****
+                1. Declare action creator for reset
+                2. It should return an action object, type
+                3. Update the reducer to handle type reset(hint the state value should be zero)
+                4. Dispatch the action to the store
+            */
+
+            store.dispatch(reset())
+
+            store.dispatch(incrementBy(10))
+
+        </script>
+    </body>
+</html>

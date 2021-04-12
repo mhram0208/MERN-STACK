@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            4. Select Tag
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            /*
+                1. Create a UserLaptop Component
+                2. The component  return a form, which has 2 input fields
+                    *username
+                    *laptops -> it should be a drop down with values
+                    (Hp, Apple, Acer, Samsung, Dell)
+                3. User should be able to submit the form
+                4. After submission, display the user's laptop in heading
+            */
+            const {useState} = React
+
+            function UserLaptop(props){
+                const [username, setUsername] = useState('')
+                const [laptop, setLaptop] = useState('')
+                const [isSubmitted, setIsSubmitted] = useState(false)
+                const brands = ['Hp', 'Apple', 'Acer', 'Samsung', 'Dell']
+                
+                const handleUsernameChange = (e) =>{
+                  const usernameInput= e.target.value
+                  setUsername(usernameInput)
+                }
+
+                const handleLaptopChange = (e) =>{
+                  const laptopInput= e.target.value
+                  setLaptop(laptopInput)
+                }
+                
+                const handleSubmit = (e) =>{
+                    e.preventDefault()
+                    const result = isSubmitted ? false : true
+                    setIsSubmitted(result)
+                }
+
+                return (
+                    <div>
+                        {isSubmitted && <h1>{laptop}</h1>}
+                        <form onSubmit={handleSubmit}>
+                            <label>Username</label><br/>
+                            <input type="text" value={username} onChange={handleUsernameChange}/><br/>
+                            <label>Laptop</label><br/>
+                            <select value={laptop} onChange={handleLaptopChange}>
+                                <option value="">Select Brand</option>
+                                {/*
+                                    <option value="Hp">Hp</option>
+                                    <option value="Apple">Apple</option>
+                                    <option value="Acer">Acer</option>
+                                    <option value="Samsung">Samsung</option>
+                                    <option value="Dell">Dell</option>
+                               */}
+                               {brands.sort().map((ele,i)=>{
+                                   return <option key={i} value={ele}>{ele}</option>
+                               })}
+                            </select><br/>
+                            <input type="submit" value="Save User Preference"/>
+                        </form>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UserLaptop />, rootHandle)
+        </script>
+    </body>
+</html>

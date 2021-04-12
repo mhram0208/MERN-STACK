@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            3.Display First and Last Element
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+            const tasks = [
+                    { id: 1, title: 'Task 1', isCompleted: true },
+                    { id: 2, title: 'Task 2', isCompleted: true },
+                    { id: 3, title: 'Task 3', isCompleted: false }
+                ]
+
+            function TasksList(props){
+                return (
+                    <div>
+                        <input type ="button" onClick={first_task}  value="First Task" />
+                        <input type ="button" onClick={last_task}  value="Last Task" />
+                    </div>
+                    
+                )
+
+                function first_task(e){
+                    e.preventDefault();
+                    const first = props.tasks[0].title
+                    alert(first)
+                }  
+
+                function last_task(e){
+                    e.preventDefault();
+                    const last = props.tasks[tasks.length-1].title
+                    alert(last)
+                }  
+            }
+                
+
+            
+            const ele = <TasksList tasks={tasks}/>
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

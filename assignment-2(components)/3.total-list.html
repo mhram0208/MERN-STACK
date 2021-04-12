@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            3.Total List
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const prices = [150,250,200,400]
+
+            function Total(props){
+                let sum=0;
+                for(const ele in props.prices){
+                    sum += props.prices[ele];
+                }
+                
+                return(
+                    <div>
+                        <h1>Toal Amount = {sum}</h1>
+                        <ul>
+                             {props.prices.map((price)=>{
+                                return<li>{price}</li>
+                             })}
+                        </ul>
+                    </div>
+                    
+                )
+            }
+            
+            const ele = <Total prices={prices}/>
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

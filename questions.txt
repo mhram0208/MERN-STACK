@@ -1,0 +1,82 @@
+Html
+#######################
+what is the difference b/n html and html5?
+what is the difference paragraph tag and head tag?
+what is the difference block element and an inline block element?
+why do we use select tag?
+how to display a page on new tab?
+what is the difference b/n  div tag and span tag
+
+css
+#######################
+what is css selector and types?
+why do we use positioning and what are the types?
+what is the difference b/n padding and margin?
+explain box model
+what is flex box
+
+JS
+#######################
+what is js?
+what is the difference b/n var, let and const?
+what is closure? with an example
+what is virtual dom and how does it work?
+what are promises?
+How to create object and access object properties?
+what are shallow copy and deep copy with example
+How filter work?
+How to iterarte over an array?
+How to remove an object from array of objects?
+what is event bubbling?
+what are the diff datatypes in js?
+what is arrow function?
+why do we use constructor?
+what is hoisting?
+Diff b/n session storage and local storage
+
+React
+#######################
+what is virtual dom?
+what is react dom?
+what are the lifecycle methods?
+when do we use useState hook and write it's syntax
+why do we use useEffect hook and write it's syntax
+Diff b/n props and state?
+How to pass props from child to parent?
+without constructor can i manage state in a class component?
+why have u choosen react?
+Create react from where properties are id, name, phone, email and message. when the user click on submit then all the form data should be displayed on the ui and explain how the coding was done
+create the same formusing html and pure js
+how many pair of elements in a given array. input - 1,2 1,2 3,1
+
+Somshekhar
+#######################
+what is usememo usecallback hooks in react?
+what is the use of specifying key prop in react
+what are variables and function hoisting?
+explain virtual dom
+what is the second parameter of useState function?
+explain call, apply and bind
+what is the value of this in various places?
+explain closure
+is js synchronous or asynchronous by default
+event loop
+what are higher order component and it's useState
+what is prototype in js?
+what is strict mode in js?
+value of this inside a function with strict mode
+what happens when we invoke bind 2 times?
+have you worked on class components?
+any programing languages you are aware apart from js?
+have u worked with database?
+how can we restrict the component from re-rendering?
+does the component re-render when the props are changed?
+what are pure functions?
+what is thunk and why do we use it?
+is it possible to update state value directly?
+what are fragments?
+explain useEffectexplain flexbox
+
+what is pwa and how to work with pwa?
+what do you know about scss?
+what is the role of web workers and service workers?

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            3.optimize
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const {useState, useEffect} = React
+
+            function GenderCount(props){
+                const [maleCount, setMaleCount] = useState(0)
+                const [femaleCount, setFeMaleCount] = useState(0)
+
+                const incMale = () =>{
+                    setMaleCount(maleCount+1)
+                }
+
+                const incFeMale = () =>{
+                    setFeMaleCount(femaleCount+1)
+                }
+
+                useEffect(()=>{
+                    alert('Male Count Code')
+                    
+                },[maleCount])
+
+                useEffect(()=>{
+                    alert('Female Count Code')
+                    
+                },[femaleCount])
+
+                return (
+                    <div>
+                        <h2>Male - {maleCount}, Female - {femaleCount}</h2>
+                        <button onClick={incMale}>+1 male</button>
+                        <button onClick={incFeMale}>+1 female</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<GenderCount />, rootHandle)
+        </script>
+    </body>
+</html>

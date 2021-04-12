@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            29. Pass Data
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+            function Parent(props){
+                const name1="Ross"
+                const name2="Joey"
+                return (
+                    <div>
+                        <h1>Parent Component</h1>
+                        <Child name ={name1}/>
+                        <Child name ={name2}/>
+                        <Child name ="Rachel"/>
+                    </div>
+                )
+            }
+
+            function Child(props){
+                return <h2>Child Component - {props.name}</h2>
+            }
+           
+           ReactDOM.render(<Parent />, rootHandle)
+        </script>
+    </body>
+</html>

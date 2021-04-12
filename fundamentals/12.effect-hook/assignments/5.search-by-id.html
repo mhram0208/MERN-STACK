@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Search by ID</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React
+
+            function SearchById(props) {
+                const [ id, setId ] = useState('')
+                const [ url, setUrl ] = useState('')
+                const [ details, setDetails ] = useState('')
+                const [ formErrors, setFormErrors ] = useState({})
+                const error = {}
+
+                const handleIdChange = (e) => {
+                    setId(e.target.value)
+                    const newUrl = 'https://jsonplaceholder.typicode.com/users/' + e.target.value
+                    setUrl(newUrl)
+                }
+
+                const validate = () => {
+                    if(id == '' || Number(id)!=id) {
+                        error.status = ' Please enter valid id'
+                        setFormErrors(error)
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    if(validate()) {
+                        axios.get(url)
+                            .then((response) => {
+                                // console.log(response)
+                                // console.log(response.data)
+                                const { data }  = response
+                                const newDetails = `${data.name} - ${data.email} - ${data.address.city}`
+                                setDetails(newDetails)
+                                setFormErrors(error)
+                            }).catch(err => {
+                                if(err.response) {
+                                    error.status = 'record not found'
+                                    setFormErrors(error)
+                                }
+                            })
+                    } 
+                }
+
+
+                return (
+                    <div>
+                        <form onSubmit = {handleSubmit}>
+                            <label>Enter ID </label>    
+                            <input type='text' value = {id} placeholder='search id' onChange = {handleIdChange}/>
+                            <input type='submit' value='Search' />
+                        </form>
+                        {
+                            formErrors.status ? (
+                                <p style={{color: 'red'}}>{formErrors.status}</p>
+                            ) : (
+                                <h1> {details} </h1>
+                            )
+                        }
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<SearchById />, rootHandle)
+        </script>
+    </body>
+</html>

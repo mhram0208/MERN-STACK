@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            25. Event Object
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            function NextPage(props){
+
+                function handleClick(e){
+                    e.preventDefault()
+                    console.log(e)
+                }
+
+                return(
+                    <a href={props.url} onClick={handleClick}>{props.name}</a>
+                )
+            }
+
+            const ele = <NextPage name="google" url="http://www.google.com"/>
+
+           ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

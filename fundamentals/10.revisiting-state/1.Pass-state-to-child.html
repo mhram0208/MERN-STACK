@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+           1. Pass State to Child
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            /* 
+                1. Create MyCart Component
+                2. Maintain state inside MyCart Component
+                    const products = [
+                        {id:1, name:'marker', price:10, quantity:1},
+                        {id:1, name:'scale', price:5, quantity:1}
+                    ]
+                3. Display Total Items in cart
+                4. Create CartItem Component
+                5. Pass the state value as props to the component
+                6. Build the component with the specified UI
+                7. Create PriceDetails component
+                8. Display the product items total and sum of the cart
+            */
+            
+            const {useState} = React
+
+            function PriceDetails(props){
+                console.log(props)
+                const {totalItems, cartTotal} = props
+                const deliveryCharge = 100
+                return (
+                    <div>
+                        <h3>Price Details</h3>
+                        <b>Price ({totalItems} items) - {cartTotal}</b><br/>
+                        <b>Delivery Charge - {deliveryCharge}</b><br/>
+                        <b>Total - {cartTotal + deliveryCharge}</b>
+                    </div>
+                )
+            }
+
+            function CartItem(props){
+                console.log(props)
+                const {id, name, price, quantity } = props
+                   return (
+                        <div>
+                            <b>{name}</b>
+                            <p>INR {price}</p>
+                            <button>-</button>{quantity}<button>+</button>
+                            <button>remove</button>
+                            <hr/>
+                        </div>
+                   )
+            }
+
+           function MyCart(props){
+            //state variable - products
+            const [products, setProducts] = useState([{id:1, name:'marker', price:10, quantity:1}, {id:2, name:'scale', price:5, quantity:2}])
+            
+            const calcSum = () =>{
+                let sum = 0;
+                products.forEach((prod)=>{
+                    sum = sum + prod.price * prod.quantity
+                })
+                return sum
+            }
+
+            return (
+                    <div>
+                        <h1>My Cart ({products.length})</h1>
+                        {
+                            products.map((prod)=>{
+                                return <CartItem key={prod.id} {...prod}/>
+                            })
+                        }
+                        <PriceDetails totalItems={products.length} cartTotal ={calcSum()}/>
+                    </div>
+               )
+           }
+
+            function App(props){
+                return (
+                    <div>
+                        <h1>Cart Page</h1> 
+                        <MyCart />   
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App />, rootHandle)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+           
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            /* 
+                Remove repeated values
+            */
+            const {useState} = React
+            // const userList = ['Ravi','Rajiv','Ramesh','Ravi']
+
+            function App (props) {
+                const [users, setUsers] = useState(['Ravi','Rajesh','Ramesh','Ravi'])
+
+                //remove both ravi's and remove first ravi
+                const removeRavi = () =>{
+                    const result = users.filter((user,i)=>{
+                       //remove All Ravi's // return user!=='Ravi' 
+                        return i!==users.indexOf('Ravi')
+                    })
+                    setUsers(result)
+                }
+
+                //convert names into uppercase
+                const toUpper = () =>{
+                    const result = users.map((user)=>{
+                        return user.toUpperCase()
+                    })
+                    setUsers(result)
+                }
+                
+                //Remove All Users
+                const removeAll = () =>{
+                    setUsers([])
+                }
+
+                return (
+                    <div>
+                        <ul>
+                           {users.map((user,i) =>{
+                                return <li key={i}>{user}</li>
+                            })}
+                        </ul>
+                        <button onClick = {removeRavi}>Remove Ravi's</button>
+                        <button onClick = {toUpper}>TO UPPERCASE</button>
+                        <button onClick = {removeAll}>Remove All Users</button>
+                    </div>
+                )
+            }
+            ReactDOM.render(<App />,rootHandle)
+        </script>
+    </body>
+</html>

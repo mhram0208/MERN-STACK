@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            3.Display selected users data
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            const url = 'https://jsonplaceholder.typicode.com/users'
+            const {useState,useEffect} = React
+
+            function UsersSelect (props){
+                const [userInfo, setUserInfo] = useState([])
+                const [selectedUser, setSelectedUser] = useState([])
+
+                const handleChange = (e) =>{
+                    const id = e.target.value
+                    const result = userInfo.filter((user)=>{
+                        return user.id==id
+                    })
+                    // console.log( typeof result)
+                    setSelectedUser(result);
+                }
+
+                useEffect(()=>{
+                    axios.get(url).then((response)=>{
+                        console.log(response.data)
+                        setUserInfo(response.data)
+                    })
+                },[])
+
+                return(
+                    <div>
+                        
+                        <label>Users</label>
+                        <select onChange={handleChange}>
+                            <option value="">Select User</option>
+                            {userInfo.map((user)=>{
+                                return <option key={user.id} value={user.id}>{user.name}</option>
+                            })}
+                        </select>
+                        {selectedUser.length < 1 && <p>select any user</p>}
+                        {
+                            selectedUser.map((user)=>{
+                            return <p key={user.id}>{user.name} - {user.email} - {user.address.city}</p>
+                        })
+                        }
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UsersSelect />, rootHandle)
+        </script>
+    </body>
+</html>

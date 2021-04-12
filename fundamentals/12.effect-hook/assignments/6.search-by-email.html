@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Search by Email</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+            const url = 'https://jsonplaceholder.typicode.com/users'
+            const { useState, useEffect } = React
+
+            function SearchByEmail(props) {
+                const [users, setUsers] = useState([])
+                const [email, setEmail] = useState('')
+                const [details, setDetails ] = useState([])
+                const [formErrors, setFormErrors] = useState({})
+                const error = {}
+
+                useEffect(()=>{
+                    axios.get(url).then((response)=>{
+                        console.log(response)
+                        const {data} = response
+                        setUsers(data)
+                    })
+                },[])
+
+                const handleIdChange = (e) => {
+                    setEmail(e.target.value)
+                }
+
+                const validate = () => {
+                    if(email == '' ) {
+                        error.status = ' Please enter valid email'
+                        setFormErrors(error)
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    if(validate()) {
+                        const result = users.filter((user)=>{
+                            return user.email==email
+                        })
+                        
+                        if(result.length){
+                            console.log(result)
+                            setDetails(result)
+                            setFormErrors(error)
+                            
+                        }else{
+                            error.status = 'record not found'
+                            setFormErrors(error)
+                        }
+                    } 
+                }
+
+
+                return (
+                    <div>
+                        <form onSubmit = {handleSubmit}>
+                            <label>Enter Email </label>    
+                            <input type='text' value = {email} placeholder='search email' onChange = {handleIdChange}/>
+                            <input type='submit' value='Search' />
+                        </form>
+                        {
+                            formErrors.status ? (
+                                <p style={{color: 'red'}}>{formErrors.status}</p>
+                            ) : (
+                                details.map((ele)=>{
+                                    return <h3 key={ele.id}>{ele.name} - {ele.email} - {ele.address.city}</h3>
+                                })
+                            )
+                        }
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<SearchByEmail />, rootHandle)
+        </script>
+    </body>
+</html>

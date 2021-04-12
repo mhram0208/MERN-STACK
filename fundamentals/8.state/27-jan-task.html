@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+          
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            /* 
+                2 buttons -> +1 and -1
+                count - show count
+                click - show click
+            */
+            const {useState} = React
+
+            function CountsAndClicks (props) {
+                const [count, setCount] = useState(0)
+                const [click, setClick] = useState(0)
+
+                const increment = () =>{
+                    setCount(count+1)
+                    setClick(click+1)
+                }
+
+                const decrement = () =>{
+                    setCount(count-1)
+                    setClick(click+1)
+                }
+
+                return (
+                    <div>
+                        <h1>Count - {count} </h1>
+                        <h1>Clicks - {click} </h1>
+                        <button onClick = {increment}>+</button>
+                        <button onClick = {decrement}>-</button>
+                    </div>
+                )
+            }
+            ReactDOM.render(<CountsAndClicks/>,rootHandle)
+        </script>
+    </body>
+</html>

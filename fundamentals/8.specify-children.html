@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            8.Specify Children
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+           const ele = (
+               <div>
+                    <div>
+                            <h1>H1 Tag</h1>
+                            <p>p Tag</p>
+                    </div>
+                    <div>
+                    
+                    </div>
+               </div>
+           )
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            10.User Profile Table Activity
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const user = {
+                first_name:'Joseph',
+                email:'joseph@gmail.com',
+                avatar:'https://i.picsum.photos/id/1/367/267.jpg?hmac=jZdc5TviQPVhxLyvyU8siO-I5FMVXVZpBhsBYKbBJpM',
+            }
+
+            /*
+               | pic | name | email |
+            */
+           const ele = (
+               <table>
+                    <thead>
+                            <tr>
+                                <th>Pic</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td><img src={user.avatar}/></td>
+                                <td>{user.first_name}</td>
+                                <td>{user.email}</td>
+                            </tr>
+                    </tbody>
+               </table>
+           )
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

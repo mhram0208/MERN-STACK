@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>8.Users Completed Todo's</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+            const url = 'https://jsonplaceholder.typicode.com/users'
+
+            const { useState, useEffect } = React
+
+            function UsersTodo(props) {
+                const [users, setUsers] = useState([])
+                const [userId, setUserId] = useState([])
+                const [todo, setTodo] = useState([])
+                const [completed, setCompleted] = useState(false)
+
+                useEffect(() => {
+                    axios.get(url) 
+                        .then((response) => {
+                            const { data } = response
+                            setUsers(data)
+                        })
+                }, [])
+
+                const handleUserChange = (e) => { 
+                    setUserId(e.target.value)
+                }
+
+                const handleCompletedChange = (e) =>{
+                    setCompleted(e.target.checked)
+                }
+
+                useEffect(()=>{
+                    let todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${userId}`
+                    axios.get(todoUrl) 
+                        .then((response) => {
+                        const {data} = response
+                        if(completed){
+                            const completedTodo = data.filter((ele)=>{
+                                return ele.completed
+                            })
+                            setTodo(completedTodo)
+                        } else {
+                            setTodo(data)
+                        }
+                        
+                    })
+                },[userId,completed])
+                
+                return (
+                    <div>
+                        <label>Users </label>
+                        <select onChange={handleUserChange}>
+                            <option value=''>select user</option>
+                            {
+                                users.map( user => <option key={user.id} value={user.id}>{user.name}</option> )
+                            }
+                        </select>
+                        {
+                            todo.length > 0 &&
+                            <div>
+                                <h2>Listing Tasks</h2>
+                                <input type="checkbox" checked={completed} onChange={handleCompletedChange} />Completed<br/> 
+                                <ul>
+                                    {todo.map((ele)=>{
+                                        return ele.completed ? <li key={ele.id} style={{textDecoration:'line-through'}}>{ele.title}</li> : <li key={ele.id}>{ele.title}</li>
+                                    })}
+                                </ul>
+                            </div> 
+                        }
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UsersTodo />, rootHandle)
+        </script>
+    </body>
+</html>

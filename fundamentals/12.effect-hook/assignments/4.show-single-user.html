@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            4.Show single User
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            const url = 'https://jsonplaceholder.typicode.com/users/1'
+            const {useState,useEffect} = React
+
+            function UsersSelect (props){
+                const [name, setName] = useState('')
+                const [email, setEmail] = useState('')
+                const [city, setCity] = useState('')
+
+                useEffect(()=>{
+                    axios.get(url).then((response)=>{
+                        console.log(response.data)
+                        setName(response.data.name)
+                        setEmail(response.data.email)
+                        setCity(response.data.city)
+                    })
+                },[])
+                
+                return(
+                    <div>
+                        <h1>{name} - {email} - {city} </h1>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UsersSelect />, rootHandle)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            5.Distance Activity
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const data = {
+                source:'Bangalore',
+                destination:'Mysore',
+                distance:'140 kms',
+                duration:'3 hours 30 mins'
+            }
+
+            const ele = <p>The distance between {data.soure} to {data.destination} is {data.distance} and the time taken to travel is {data.duration}</p>
+            
+            // The distance between Bangalore to Mysore is 140 kms and the time taken to travel is 3 hours 30 mins.
+
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

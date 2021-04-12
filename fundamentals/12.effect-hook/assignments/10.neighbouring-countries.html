@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>10.Neighbours</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+            const url = 'https://restcountries.eu/rest/v2/all'
+
+            const { useState, useEffect } = React
+
+            function Neighbours(props) {
+                const [countries, setCountries] = useState([])
+                const [selectedCountry, setSelectedCountry] = useState([])
+                const [neighbours, setNeighbours] = useState([])
+                
+                useEffect(()=>{
+                    axios.get(url)
+                    .then((response)=>{
+                        console.log(response.data)
+                        const {data} = response
+                        setCountries(data)
+                    })
+                },[])
+
+                const showNeighbours = (e) =>{
+                   const countryCode = e.target.value
+                   const result = countries.find((country)=>{
+                       return country.alpha2Code == countryCode
+                   })
+                   setSelectedCountry(result)
+                   const borders = result.borders.join(';')
+                   const newUrl = `https://restcountries.eu/rest/v2/alpha?codes=${borders}` 
+                   axios.get(newUrl)
+                    .then((response)=>{
+                        const {data} = response
+                        setNeighbours(data)
+                    }).catch((err)=>{
+                        setNeighbours([])
+                    })
+                   
+                }
+
+                
+                return (
+                    <div>
+                        <label>Countries </label>
+                        <select onChange={showNeighbours}>
+                            <option value=''>select country</option>
+                            {
+                                countries.map( country => <option key={country.name} value={country.alpha2Code}>{country.name}</option> )
+                            }
+                        </select>
+                        {
+                            neighbours.length > 0 && <h2>Neighbouring Countries</h2>
+                        }
+                        
+                        {
+                            neighbours.length > 0 && 
+                            <table>
+                            <thead>
+                                <tr>
+                                    <th>Flag</th>
+                                    <th>Name</th>
+                                    <th>Capital</th>
+                                </tr>
+                            </thead>  
+                            <tbody>
+                                    {neighbours.map((ele)=>{
+                                        return(
+                                            <tr key={ele.name}>
+                                                <td><img src={ele.flag} height="20px"/></td>
+                                                <td>{ele.name}</td>
+                                                <td>{ele.capital}</td>
+                                            </tr>
+                                        )
+                                    })}
+                            </tbody>  
+                        </table>
+                        }
+                        
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Neighbours />, rootHandle)
+        </script>
+    </body>
+</html>

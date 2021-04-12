@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            4.Current Time
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            function Time(props){
+                const date =new Date();
+                const hour = (date.getHours() > 12)? date.getHours()-12 : date.getHours()
+                const amOrPm = (date.getHours() >=12) ? 'PM' : 'AM'
+                return(
+                    <h1>{hour} : {date.getMinutes()} {amOrPm}</h1>
+                )
+            }
+            
+            const ele = <Time />
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

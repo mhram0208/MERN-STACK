@@ -1,0 +1,77 @@
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+           12. Show/Hide Many
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            /* 
+                1. Create 2 Components App and TextDisplay
+                2. Articles is present inside the App Component
+                3. Pass each article as prop to TextDisplay Component
+                4. Maintain state "status" inside the TextDisplay
+                5. Display the text received via props along with button
+                6. When the status is true, 
+                    then display the text
+                    then button text needs to be hide - article title
+                7. When the status is false, 
+                    then don't display the text
+                    then button text needs to be show - article title
+                8. Add a event handler, which when clicked change status to it's opposite value
+            */
+
+            const {useState} = React
+
+            function TextDisplay(props){
+                console.log(props)
+                const [status, setStatus] = useState(true)
+                const {title,body} = props
+
+                const toggle = () =>{
+                    const result =!status
+                    setStatus(result)
+                    // setStatus(!status)
+                }
+
+                return(
+                    <div>
+                        {status && <p>{body}</p> }
+                        <button onClick={toggle}>{status ? 'Hide' : 'Show'} - {title}</button>
+                    </div>
+                )
+            }
+
+            function App (props) {
+                const data = [
+                    {title:'React Article', body:'React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.'},
+                    {title:'Javascript Article', body:`JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, and is best known as the scripting language for Web pages, but it's used in many non-browser environments as well`},
+                    {title:'Node JS Article', body:'Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the Chrome V8 engine and executes JavaScript code outside a web browser.'},
+                ]
+                
+                return (
+                    <div>
+                        <h1>Listing Articles</h1>
+                        {data.map((article,i)=>{
+                            // return <TextDisplay key={i} title = {article.title} body = {article.body} />
+                            return <TextDisplay key={i} {...article}/>
+                        })}
+                    </div>
+                )
+            }
+            ReactDOM.render(<App/>,rootHandle)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            1.Generate Random Number
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            function GenerateRandom(){
+                
+                return (
+                    <input type ="button" onClick={random_number}  value="Generate" />
+                )
+
+                function random_number(e){
+                    e.preventDefault();
+                    const rand = Math.ceil(Math.random()*100)
+                    alert(rand)
+                }  
+            }
+                
+
+            
+            const ele = <GenerateRandom/>
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

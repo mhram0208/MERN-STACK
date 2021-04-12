@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            8. Final Bill
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.5.2/validator.min.js"></script>
+        <script type="text/babel">
+        
+            const rootHandle = document.getElementById("root")
+            
+            
+          /* 
+            1. Create a component FinalBill
+            2. The component returns a form, with 2 input fields
+              *amount-number
+              *final amount-disabled
+            3. When the user enters the amount, calculate and display the final amount by calculating 18% GST
+          */
+            const {useState} = React
+            function FinalBill(props){
+              const [amount, setAmount] = useState(0)
+              const [finalAmt, setFinalAmt] =useState(0)
+
+              const handleAmountChange = (e) =>{
+                const amt = e.target.value
+                console.log(typeof amt)
+                setAmount(amt)
+                const finalAmount = (Number(amt) + (amt*18) /100).toFixed(2)
+                setFinalAmt(finalAmount)
+              }
+
+
+
+              return (
+                <div>
+                  <form>
+                    <label>Amount</label><br/>
+                    <input type="number" value={amount} onChange={handleAmountChange} /><br/>
+
+                    <label>Final Amount</label><br/>
+                    <input type="number" value={finalAmt} disabled={true}/>
+                  </form>
+                </div>
+              )
+            }
+
+            ReactDOM.render(<FinalBill />, rootHandle)
+        </script>
+    </body>
+</html>

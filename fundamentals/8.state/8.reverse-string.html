@@ -1,0 +1,57 @@
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+           8. Rverse String
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            /* 
+                1. Create a component called as ReverseStr
+                2. Maintain a string value in state
+                3. Display the state value in a <h1> tag
+                4. Have a button on the page
+                5. When the user clicks on the button, reverse the string and display
+            */
+            const {useState} = React
+            
+            function ReverseStr(props){
+                const [str, setStr] = useState('dct academy')
+
+                const revStr = (str) =>{
+                    //for loop
+                    // let result = ''
+                    // for(let i = str.length-1; i>=0; i--){
+                    //     result = result + str[i]
+                    // }
+                    // setStr(result)
+
+                    //methods
+                    const result = str.split('').reverse().join('')
+                    setStr(result)
+                }
+                return(
+                    <div>
+                        <h1>Reverse a String</h1>
+                        <p>{str}</p>
+                        <button onClick={()=>{
+                            revStr(str)
+                        }}>Reverse</button>
+                    </div>
+                )
+            }
+            ReactDOM.render(<ReverseStr/>,rootHandle)
+        </script>
+    </body>
+</html>

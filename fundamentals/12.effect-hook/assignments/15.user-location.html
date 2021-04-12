@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>15.User Location & City</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script> 
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+            const myToken='pk.40ac22479afe42909c1d0c484528311b'
+            const { useState, useEffect } = React
+
+            function UserLocation(props) {
+                const [latitude, setLatitude] = useState(0)
+                const [longitude, setLongitude] = useState(0)
+                const [city, setCity] = useState('')
+                const [displayLoc, setDisplayLoc] = useState(false)
+
+                const fetchCity = (lat, lon) => {
+                    axios.get(`https://eu1.locationiq.com/v1/reverse.php?key=${myToken}&lat=${lat}&lon=${lon}&format=json`)
+                        .then(response => {
+                            const { data } = response
+                            setCity(data.address.city)
+                            setDisplayLoc((displayLoc) ? true : !displayLoc)
+                        })
+                }
+
+                const fetchLatLong = () => {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        setLatitude(position.coords.latitude)
+                        setLongitude(position.coords.longitude)
+                        fetchCity(position.coords.latitude,position.coords.longitude)
+                    })
+                }
+
+                useEffect(fetchLatLong, [])
+
+                return (
+                    <div>
+                        <h1>Geo Location</h1>
+                        <hr />
+                        {
+                            (displayLoc) && (
+                                <div>
+                                    <h3>Latitude - {latitude}</h3>
+                                    <h3>Longitude - {longitude}</h3>
+                                    <h3>City - {city}</h3>
+                                </div>
+                            )
+                        }
+                        <button onClick={fetchLatLong}>Get Location</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UserLocation />, rootHandle)
+        </script>
+    </body>
+</html>

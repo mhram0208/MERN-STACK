@@ -1,0 +1,128 @@
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            28. Composing Components
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const tasks = [
+                { id: 1, title: "Task 1", isCompleted: true},
+                { id: 2, title: "Task 2", isCompleted: true},
+                { id: 3, title: "Task 3", isCompleted: false},
+            ]
+            /*
+            1.Create a Component called TasksList
+            2.Pass only the completed task as props to the  TaskList
+            3.Return an unordered list of the TasksList
+            */
+           
+            function App() {
+                const completedTasks = tasks.filter((task)=>{
+                    return task.isCompleted
+                })
+
+                const incompleteTasks = tasks.filter((task)=>{
+                    return !task.isCompleted
+                })
+
+                return(
+                    <div>
+                        <h1>Completed Tasks - {completedTasks.length}</h1>
+                        <ul>
+                            {completedTasks.map((ele)=>{
+                                return <li key={ele.id}>{ele.title}</li>
+                            })}
+                        </ul>
+                        <h1>Incomplete Tasks- {incompleteTasks.length}</h1>
+                        <ul>
+                            {incompleteTasks.map((ele)=>{
+                                return <li key={ele.id}>{ele.title}</li>
+                            })}
+                        </ul>
+                    </div>
+                )
+                
+            }
+           
+           ReactDOM.render(<App />, rootHandle)
+        </script>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            32. Tasks Split Activity
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const tasks = [
+                { id: 1, title: "Task 1", isCompleted: true},
+                { id: 2, title: "Task 2", isCompleted: true},
+                { id: 3, title: "Task 3", isCompleted: false},
+            ]
+            /*
+            1.Create a Component called TasksList
+            2.Pass only the completed task as props to the  TaskList
+            3.Return an unordered list of the TasksList
+            */
+           
+            function App() {
+                const completedTasks = tasks.filter((task)=>{
+                    return task.isCompleted
+                })
+
+                const incompleteTasks = tasks.filter((task)=>{
+                    return !task.isCompleted
+                })
+
+                
+                return(
+                    <div>
+                        <TasksList tasks={tasks} heading="All Taks"/>
+                        <TasksList tasks={completedTasks} heading="Completed Taks"/>
+                        <TasksList tasks={incompleteTasks} heading="Incomplete Taks"/>
+                    </div>
+                )
+                
+            }
+
+            function TasksList(props){
+                return (
+                    <div>
+                        <h1>{props.heading} - {props.tasks.length}</h1>
+                        <ul>
+                            {props.tasks.map((ele)=>{
+                                return <li key={ele.id}>{ele.title}</li>
+                            })}
+                        </ul>
+                    </div>
+                )
+            }
+           
+           ReactDOM.render(<App />, rootHandle)
+        </script>
+    </body>
+</html>

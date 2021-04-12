@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>9.Color Object</title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <!-- <script src="../fundamentals/js/react.development.js"></script>
+        <script src="../fundamentals/js/react-dom.development.js"></script>
+        <script src="../fundamentals/js/babel.js"></script> -->
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root");
+            const colors = {
+                red: ['energy', 'strength', 'power', 'courage'],
+                blue: ['loyalty', 'trust', 'stability', 'confidence'],
+                orange: ['excitment', 'fun', 'haste', 'action'],
+                yellow: ['cheerfulness', 'happiness', 'joy', 'optimism']
+            }
+            
+            const ele = (
+                <div>
+                    <h1>Colors and it's symbol - Object</h1>
+                    <ul>
+                       {Object.keys(colors).map((ele)=>{
+                            return <li key={ele}>{ele} - {colors[ele].join(', ')}</li>
+                       })}
+                    </ul>
+                </div>
+            )
+            ReactDOM.render(ele, rootHandle);
+        </script>
+    </body>
+</html>

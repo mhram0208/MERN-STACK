@@ -1,0 +1,90 @@
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Counter
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            function Counter(props){
+                let count = 0;
+                return (
+                    <div>
+                        <h1>{count}</h1>
+                        <button onClick={()=>{
+                            // console.log('btn clicked')
+                            console.log(count)
+                            count ++
+                        }}>+1</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Counter/>,rootHandle)
+        </script>
+    </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Counter
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const {useState} = React
+
+            function Counter(props){
+                //declare state variable
+                const [count, setCount] = useState(10)
+
+                //callback
+                const increment = ()=>{
+                    setCount(count +1)
+                }
+
+                //callback
+                const reset = ()=> { 
+                    const result = confirm ('Are you sure?')
+                        if(result){
+                            setCount(0)
+                        }
+                }
+                return (
+                    <div>
+                        <h1>{count}</h1>
+                        <button onClick={increment}>+1</button>
+
+                        <button onClick={()=>{
+                            setCount(count-1)
+                        }}>-1</button>
+
+                        <button onClick={reset}>Reset</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Counter/>,rootHandle)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            2.Display all user in drop down
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            const url = 'https://jsonplaceholder.typicode.com/users'
+            const {useState,useEffect} = React
+
+            function UsersSelect (props){
+                const [userInfo, setUserInfo] = useState([])
+
+                useEffect(()=>{
+                    axios.get(url).then((response)=>{
+                        setUserInfo(response.data)
+                    })
+                },[])
+
+                return(
+                    <div>
+                        <label>Users</label>
+                        <select>
+                            <option value="">Select User</option>
+                            {userInfo.map((user)=>{
+                                return <option key={user.id}>{user.name}</option>
+                            })}
+                        </select>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UsersSelect />, rootHandle)
+        </script>
+    </body>
+</html>

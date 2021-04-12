@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            9.User Profile Activity
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const user = {
+                first_name:'Joseph',
+                email:'joseph@gmail.com',
+                avatar:'https://i.picsum.photos/id/1/367/267.jpg?hmac=jZdc5TviQPVhxLyvyU8siO-I5FMVXVZpBhsBYKbBJpM',
+            }
+
+            /*
+                h2 - name
+                image
+                <p> - email
+            */
+           const ele = (
+               <div>
+                    <h2> {user.first_name} </h2>
+                    <img src={user.avatar} alt={user.name}/>
+                    <p> {user.email} </p>
+               </div>
+           )
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

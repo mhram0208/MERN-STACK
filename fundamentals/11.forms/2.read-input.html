@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            2. Read Input
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            /*
+                1. Create a UserInfo Component
+                2. Have 2 input fields
+                    *username
+                    *bio
+                3. What user types display in heading and paragraph tag    
+            */
+            const {useState} = React
+
+            function UserInfo(props){
+                const [username, setUsername] = useState('')
+                const [bio, setBio] = useState('')
+
+                const handleUsernameChange = (e) =>{
+                  const usernameInput= e.target.value
+                  setUsername(usernameInput)
+                }
+
+                const handleBioChange = (e) =>{
+                  const bioInput= e.target.value
+                  setBio(bioInput)
+                }
+                
+                return (
+                    <div>
+                        <h1>{username}</h1>
+                        <p>{bio}</p>
+
+                        <form>
+                            <label>Username</label><br/>
+                            <input type="text" value={username} onChange={handleUsernameChange}/><br/>
+                            <label>Bio</label><br/>
+                            <textarea value={bio} onChange={handleBioChange}></textarea>
+                        </form>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UserInfo />, rootHandle)
+        </script>
+    </body>
+</html>

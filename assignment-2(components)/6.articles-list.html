@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            6.Articles List
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const articles = [
+                    { id: 1, title: 'Article 1', meta: { likes: 10, dislikes: 0} },
+                    { id: 2, title: 'Article 2', meta: { likes: 20, dislikes: 10 }},
+                    { id: 3, title: 'Article 3', meta: { likes: 5, dislikes: 0 } }
+                ]
+
+            function ArticlesList(props){
+                
+                return(
+                    <div>
+                        <ul>
+                            {props.articles.map((article)=>{
+                                return <li key={article.id}>{article.title} - likes {article.meta.likes}, dislikes - {article.meta.dislikes}</li>
+                            })}
+                        </ul>
+                    </div>
+                    
+                )
+            }
+            
+            const ele = <ArticlesList articles={articles}/>
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

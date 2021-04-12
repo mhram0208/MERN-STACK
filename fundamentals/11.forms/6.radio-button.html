@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            6. Radio Button
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            /*
+                1. Create a Component called as UserAddress
+                2. The component  return a form, which has 2 fields
+                    *address - textarea
+                    *type - radio button - can be either home or office
+                3. Allow the user to select only 1 value
+            */
+            const {useState} = React
+
+            function UserAddress(props){
+                const [address, setAddress] = useState('')
+                const [addType, setAddType] = useState('')
+
+                const handleAddressChange = (e) =>{
+                  const addressInput= e.target.value
+                  setAddress(addressInput)
+                }
+
+                const handleAddTypeChange = (e) =>{
+                  const addTypeInput= e.target.value
+                  setAddType(addTypeInput)
+                }
+
+                return (
+                    <div>
+                        
+                        <form>
+                            <label>Address</label><br/>
+                            <textarea value={address} onChange={handleAddressChange}></textarea><br/>
+                            <label>Address Type</label><br/>
+                            <input type="radio" name="addType" value="Home" checked={addType=='Home'} onChange={handleAddTypeChange} />Home
+                            <input type="radio" name="addType" value="Office" checked={addType=='Office'} onChange={handleAddTypeChange} />Office
+                        </form>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UserAddress />, rootHandle)
+        </script>
+    </body>
+</html>

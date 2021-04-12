@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello world Without JSX(Babel)</title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script>
+            const rootHandle = document.getElementById("root");
+            const msg = 'Hello world'
+            const ele = React.createElement('h1',null,msg)
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

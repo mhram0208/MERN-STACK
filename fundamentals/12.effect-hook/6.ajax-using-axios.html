@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            6. AJAX using Axios
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            const url = 'https://restcountries.eu/rest/v2/all?fields=name;capital'
+
+            const {useState, useEffect} = React
+            
+
+            function CountriesList(props){
+                const [countries, setCountries] = useState([])
+
+                useEffect(()=>{
+                    axios.get(url).then((response)=>{ //successfully receive
+                        const result = response.data
+                        setCountries(result)
+                    })
+                    // const xhr = new XMLHttpRequest() 
+                    // xhr.open('GET',url)
+                    // xhr.send()
+                    // xhr.onload = function(){
+                    //     const result = JSON.parse(xhr.responseText)
+                    //     setCountries(result)
+                    // }
+                },[])
+
+                return (
+                    <div>
+                        <h1>Listing Countries - {countries.length}</h1>  
+                        <ul>
+                            {countries.map((country, i)=>{
+                                return <li key={i}>{country.name} - {country.capital}</li>
+                            })} 
+                        </ul>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<CountriesList/>,rootHandle)
+        </script>
+    </body>
+</html>

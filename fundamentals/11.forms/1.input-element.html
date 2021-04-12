@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            1.Input Element
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+            
+            const {useState} = React
+
+            function SearchBox(props){
+                const [search, setSearch] = useState('')
+
+                const handleSearchChange = (e) =>{
+                  const inputSearch = e.target.value
+                  setSearch(inputSearch)
+                }
+                
+                return (
+                    <div>
+                        <input type="text" value={search} onChange={handleSearchChange}/>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<SearchBox />, rootHandle)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Display tasks of user</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script> 
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+            const url = 'https://jsonplaceholder.typicode.com/users'
+            const { useState, useEffect } = React
+
+            function DisplayToDoTasks(props) {
+                const [users, setUsers] = useState([]) // to store the user details
+                const [selectedUser, setSelectedUser] = useState('') // to store the id of selected user
+                const [userTasks, setUserTasks] = useState([]) // to store the tasks of the selected user
+
+                useEffect(() =>{
+                    axios.get(url)
+                        .then((response) => {
+                            // console.log(response)
+                            // console.log(response.data)
+                            const { data } = response
+                            setUsers(data)
+                        })
+                }, [])
+
+                const handleUserChange = (e) => {
+                    setSelectedUser(e.target.value)
+                    if(e.target.value != '') {
+                        const todoUrl = 'https://jsonplaceholder.typicode.com/todos?userId=' + e.target.value
+                        axios.get(todoUrl)
+                            .then((response) => {
+                                // console.log(response)
+                                // console.log(response.data)
+                                setUserTasks(response.data)
+                            })
+                    } else {
+                        setUserTasks([])
+                    }
+                }
+
+                return (
+                    <div>
+                        <label>Users </label>
+                        <select value={selectedUser} onChange={handleUserChange}>
+                            <option value=''>select user</option>
+                            {
+                                users.map(user => <option key={user.id} value={user.id}> {user.name} </option>)
+                            }
+                        </select> 
+                        {
+                            userTasks.length > 0 && (
+                                <div>
+                                    <h1>Listing tasks</h1> 
+                                    <ul>
+                                        {
+                                            userTasks.map(task => <li key={task.id} style={{
+                                                textDecoration : (task.completed) ? 'line-through' : 'none'
+                                            }}> {task.title} </li>)
+                                        }
+                                    </ul>
+                                </div>
+                            )
+                        }
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<DisplayToDoTasks />, rootHandle)
+        </script>
+    </body>
+</html>

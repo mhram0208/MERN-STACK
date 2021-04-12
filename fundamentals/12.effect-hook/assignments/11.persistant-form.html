@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>11.Form Persist</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+
+            const { useState, useEffect } = React
+
+            function FormPersist(props) {
+                const [title, setTitle] = useState('')
+                const [body, setBody] = useState('')
+
+                useEffect(() => {
+                    if(localStorage.title) {
+                        setTitle(localStorage.getItem('title'))
+                    }
+                    if(localStorage.body) {
+                        setBody(localStorage.getItem('body'))
+                    }
+                }, [])
+
+                const handleTitleChange = (e) => {
+                    setTitle(e.target.value)
+                    localStorage.setItem('title',e.target.value)
+                }
+
+                const handleBodyChange = (e) => {
+                    setBody(e.target.value)
+                    localStorage.setItem('body',e.target.value)
+                }
+
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    localStorage.clear()
+                    setTitle('')
+                    setBody('')
+                }
+
+                const reloadPage = () => {
+                    window.location.reload()
+                }
+
+                return (
+                    <div>
+                        <h1>The storybook</h1>
+                        <form onSubmit={handleSubmit}>
+                            <label>Title</label><br />
+                            <input type='text' value={title} onChange={handleTitleChange} /><br />
+                            
+                            <label>Body</label><br />
+                            <textarea type='text' value={body} onChange={handleBodyChange} /><br />
+
+                            <input type='submit' value='save' />
+                        </form>
+                        <button onClick={reloadPage}>reload</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<FormPersist />, rootHandle)
+        </script>
+    </body>
+</html>

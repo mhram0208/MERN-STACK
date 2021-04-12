@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>9.USD to INR</title>
+    </head>
+    <body>
+        <div id='root'>
+            
+        </div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type='text/babel'> // For transpiling
+            const rootHandle = document.getElementById('root')
+            const url = 'https://api.exchangeratesapi.io/latest?base=USD'
+
+            const { useState, useEffect } = React
+
+            function UsdToInr(props) {
+                const [usd, setUsd] = useState(0)
+                const [inr, setInr] = useState(0)
+                const [slider, setSlider] = useState(0)
+                const [inrRate, setInrRate] = useState(0)
+                
+                const handleSliderChange = (e) =>{
+                    setSlider(e.target.value)
+                    setUsd(e.target.value)
+                }
+
+                useEffect(()=>{
+                    axios.get(url)
+                    .then((response)=>{
+                        const {data} = response
+                        setInrRate((data.rates.INR).toFixed(2))
+                        setInr((inrRate) * usd)
+                    })
+                },[usd])
+
+
+                return (
+                    <div>
+                        <h2>Currency Converter</h2><hr/>
+                        <h3>USD - {usd}</h3>
+                        <h3>INR - {inr}</h3>
+                        <input type="range" value={slider} onChange={handleSliderChange} min="0" max="100" />
+                        <p>note - 1 USD = {inrRate} INR</p>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UsdToInr />, rootHandle)
+        </script>
+    </body>
+</html>

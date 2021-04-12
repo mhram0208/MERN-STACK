@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            14.Keys with id
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const users = [
+                {id:1, name:'user1', email:'u1@gmail.com'},
+                {id:2, name:'user2', email:'u2@gmail.com'},
+                {id:3, name:'user3', email:'u3@gmail.com'},
+            ]
+           
+            const ele = (
+                <div>
+                    <h2>Listing Users - {users.length}</h2>
+                    <ul>
+                        {users.map((ele)=>{
+                            return <li key={ele.id}>{ele.name}</li>
+                        })}
+                    </ul>
+                    <ul>
+                        {users.map((ele)=>{
+                            return <li key={ele.id}>{ele.email}</li>
+                        })}
+                    </ul>
+                </div>
+           )
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>
